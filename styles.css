@@ -1,1 +1,326 @@
 
+/* Define Variables */
+
+:root {
+    --maxw: 1600px;
+    --bg-img: url(Images/thomas-morse-cuKKa0vWZSY-unsplash.jpg);
+
+    /* Colors */
+
+    --surface: rgba(255, 255, 255, 0.14);
+    --stroke: rgba(255, 255, 255, 0.4);
+    --text: rgb(0, 0, 0);
+
+    --blue-100: rgb(0, 131, 199); 
+    --blue-75: rgb(64, 162, 213);
+    --blue-50: rgb(128, 193, 227);
+    --blue-25: rgb(191, 224, 241);
+    --blue-10: rgb(230, 243, 249);
+    
+    --orange: rgb(251, 172, 64);
+
+}
+
+/* - - - - Navigation Bar - - - - */
+
+.nav {
+    position: sticky;
+    top: 0;
+    background: linear-gradient(180deg, rgba(0, 131, 199, 0.55), rgba(0, 131, 199, 0.35));
+    padding: clamp(0.5rem, 1vw + 0.2rem, 1rem) clamp(1rem, 2vw + 0.5rem, 3rem);
+    border-bottom: 1px solid var(--stroke);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+}
+
+.nav-inner {
+    max-width: var(--maxw);
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 0.1rem;
+    color: var(--text);
+    text-decoration: none;
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.logo-img {
+    width: clamp(40px, 4vw, 48px);
+    height: clamp(40px, 4vw, 48px);
+
+    /* width: clamp(52px, 7vw, 64px);
+    height: clamp(52px, 7vw, 64px); */
+}
+
+/* Menu */
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.75rem, 1vw, 1.5rem);
+    list-style: none;
+}
+
+.menu a {
+    text-decoration: none;
+    padding: 0.5rem 0.75rem;
+    font-size: clamp(0.9rem, 0.9vw, 1.05rem);
+    font-weight: 500;
+    color: var(--text);
+    transition: 0.2s;
+    white-space: nowrap;
+}
+
+.menu a:hover {
+    text-shadow: 0 0 10px var(--text);
+
+}
+
+/* Search Box */
+
+.search {
+    position: relative;
+}
+
+.search input {
+    width: 100%;
+    padding: 0.6rem 2.5rem 0.6rem 0.75rem;
+    font-size: 0.8rem;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--stroke);
+    border-radius: 12px;
+    outline: none;
+}
+
+.search input::placeholder {
+    color: var(--text);
+}
+
+.search button {
+    position: absolute;
+    right: 0.6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgb(255, 255, 255);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.search svg {
+    width: clamp(18px, 2vw, 24px);
+    height: clamp(18px, 2vw, 24px);
+    opacity: 0.8;
+}
+
+/* Get Started Button */
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 131, 199, 0.70);
+    border: none;
+    outline: none;
+    border-radius: 12px;
+    transition: transform 0.15s, box-shadow 0.2s;
+}
+
+.nav-btn .btn {
+    padding: 0.6rem 1rem;
+    font-size: clamp(0.9rem, 0.9vw, 1rem);
+    font-weight: 700;
+    color: var(--orange);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.nav-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px -8px rgba(255, 255, 255, 0.55);
+}
+
+/* Hamburger Menu */ /* This drop down hamburger menu appears when screen in thin to be responsive */
+
+.menu-toggle {
+    display: none;
+
+}
+
+.hamburger {
+    display: none;
+    width: clamp(40px, 6vw, 45px);
+    height: clamp(40px, 6vw, 45px);
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+}
+
+.hamburger span,
+.hamburger span::before,
+.hamburger span::after {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background: white;
+    position: relative;
+    content: "";
+    transition: transform 0.25s ease, top 0.25s ease, background 0.25s ease;
+    transform-origin: center;
+}
+
+.hamburger span::before {
+    position: absolute;
+    top: -6px;
+}
+
+.hamburger span::after {
+    position: absolute;
+    top: 6px;
+}
+
+/* - - - - Creating Responsive Behavior - - - - */
+
+/* Make top menu nav bar disappear when too thin */
+
+@media(max-width: 1050px /* the higher this value, the sooner and earlier it switches into hamburger mode */ ) {
+    .menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(230, 243, 249, 0.8);
+        backdrop-filter: blur(12px);
+        max-height: 0;
+        padding: 0;
+        opacity: 0;
+        pointer-events: none;
+        overflow: hidden;
+        transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    }
+
+    .menu li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 90%;
+        border-bottom: 1px solid rgb(189, 189, 189);
+    }
+
+    .menu li a {
+        padding: 10px 0;
+    }
+
+    .menu .search,
+    .menu .nav-btn {
+        width: 90%;
+        margin-top: 1rem;
+    }
+
+    .menu-toggle:checked~.menu {
+        max-height: 100vh;
+        height: 100vh;
+        padding: 1.5rem 0;
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .menu-toggle:checked~.hamburger span {
+        background: transparent;
+    }
+
+    .menu-toggle:checked~.hamburger span::before {
+        top: 0;
+        transform: rotate(45deg);
+    }
+
+    .menu-toggle:checked~.hamburger span::after {
+        top: 0;
+        transform: rotate(-45deg);
+    }
+}
+
+
+
+
+
+
+
+
+#toggle {
+    display: none;
+}
+
+.ambigram {
+    display: block;
+    transition: transform 0.7s ease;
+    transform-origin: center;
+    cursor: pointer;
+}
+
+/* Rotate when the checkbox is checked */
+#toggle:checked + .ambigram {
+    transform: rotate(180deg);
+}
+
+
+
+
+
+
+
+
+
+
+
+@font-face {
+  font-family: "Oswald";
+  src: url(Fonts/Oswald-VariableFont_wght.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+body {
+    font-family: "Oswald", sans-serif;
+    /* background-color: rgba(0, 131, 199, 0.4); */
+    background: radial-gradient(1200px 600px at 80% -10%, rgba(255, 255, 255, .25), transparent 60%),
+        linear-gradient(180deg, rgba(11, 14, 19, .4), rgba(11, 14, 19, .85)), 
+        var(--bg-img) center/cover no-repeat fixed;
+    min-height: 100vh;
+    color: var(--text);
+    line-height: 1.45;
+    overflow: hidden;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
